@@ -1,0 +1,6 @@
+pushd service-mgmt/sm-db-1.0.0
+sqlite3 database/sm.db < database/create_sm_db.sql
+sqlite3 database/sm.hb.db < database/create_sm_hb_db.sql
+popd
+VER=%{version}
+MAJOR=`echo $VER | awk -F . '{print $1}'`

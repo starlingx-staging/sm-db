@@ -1,0 +1,25 @@
+From c852095748cf001ae6e3e5fb049c9957afe23165 Mon Sep 17 00:00:00 2001
+From: Mingyuan Qi <mingyuan.qi@intel.com>
+Date: Fri, 28 Sep 2018 23:09:18 +0800
+Subject: [PATCH 2/2] reorder LDLIBS
+
+---
+ service-mgmt/sm-db-1.0.0/src/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/service-mgmt/sm-db-1.0.0/src/Makefile b/service-mgmt/sm-db-1.0.0/src/Makefile
+index 2989294..9bcb036 100644
+--- a/service-mgmt/sm-db-1.0.0/src/Makefile
++++ b/service-mgmt/sm-db-1.0.0/src/Makefile
+@@ -30,7 +30,7 @@ SRCS+=sm_db_configuration.c
+ OBJS = $(SRCS:.c=.o)
+ CCFLAGS= -fPIC -g -O2 -Wall -std=c++11
+ EXTRACCFLAGS= -D__STDC_FORMAT_MACROS
+-LDLIBS= -lsqlite3 -lglib-2.0 -luuid -lrt -lsm_common
++LDLIBS= -lsm_common -lsqlite3 -lglib-2.0 -luuid -lrt
+ LDFLAGS = -shared -rdynamic
+ 
+ build: libsm_db.so sm_db_build
+-- 
+2.19.0
+

@@ -1,0 +1,3 @@
+0001-disable-warning-as-error.patch
+0002-reorder-LDLIBS.patch
+0003-fix-comparison-between-pointer-and-char.patch
