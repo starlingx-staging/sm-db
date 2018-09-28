@@ -1,0 +1,48 @@
+From 9e25fd6202e38f1882990cb11c123f4bd8e65263 Mon Sep 17 00:00:00 2001
+From: Mingyuan Qi <mingyuan.qi@intel.com>
+Date: Fri, 28 Sep 2018 23:14:27 +0800
+Subject: [PATCH] fix comparison between pointer and char
+
+Signed-off-by: Mingyuan Qi <mingyuan.qi@intel.com>
+---
+ .../sm-db-1.0.0/src/sm_db_service_domain_interfaces.c         | 2 +-
+ service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_neighbors.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_interfaces.c b/service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_interfaces.c
+index ecdff20..c7d6b65 100644
+--- a/service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_interfaces.c
++++ b/service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_interfaces.c
+@@ -363,7 +363,7 @@ SmErrorT sm_db_service_domain_interfaces_update( SmDbHandleT* sm_db_handle,
+                          sm_auth_type_str(record->auth_type) );
+     }
+ 
+-    if( '\0' != record->auth_key )
++    if( '\0' != record->auth_key[0] )
+     {
+         len += snprintf( sql+len, sizeof(sql)-len, "%s = '%s', ",
+                          SM_SERVICE_DOMAIN_INTERFACES_TABLE_COLUMN_AUTH_KEY,
+diff --git a/service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_neighbors.c b/service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_neighbors.c
+index 809c801..afdcb7c 100644
+--- a/service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_neighbors.c
++++ b/service-mgmt/sm-db-1.0.0/src/sm_db_service_domain_neighbors.c
+@@ -308,14 +308,14 @@ SmErrorT sm_db_service_domain_neighbors_update( SmDbHandleT* sm_db_handle,
+     len = snprintf( sql, sizeof(sql), "UPDATE %s SET  ",
+                     SM_SERVICE_DOMAIN_NEIGHBORS_TABLE_NAME);
+ 
+-    if( '\0' != record->orchestration )
++    if( '\0' != record->orchestration[0] )
+     {
+         len += snprintf( sql+len, sizeof(sql)-len, "%s = '%s', ",
+                          SM_SERVICE_DOMAIN_NEIGHBORS_TABLE_COLUMN_ORCHESTRATION,
+                          record->orchestration );
+     }
+ 
+-    if( '\0' != record->designation )
++    if( '\0' != record->designation[0] )
+     {
+         len += snprintf( sql+len, sizeof(sql)-len, "%s = '%s', ",
+                          SM_SERVICE_DOMAIN_NEIGHBORS_TABLE_COLUMN_DESIGNATION,
+-- 
+2.19.0
+

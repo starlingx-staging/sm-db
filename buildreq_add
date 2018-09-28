@@ -1,0 +1,4 @@
+gcc
+sm-common-dev
+glib-dev
+sqlite-autoconf-dev
